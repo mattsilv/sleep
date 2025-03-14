@@ -154,3 +154,31 @@ self.addEventListener('message', (event) => {
 });
 
 // Any other custom service worker logic can go here.
+
+// Add cache control headers to prevent stale content
+self.addEventListener('fetch', event => {
+  // Skip cross-origin requests
+  if (event.request.url.startsWith(self.location.origin)) {
+    // Only handle HTML requests for the root page
+    if (event.request.url.endsWith('/') || event.request.url.endsWith('/index.html')) {
+      event.respondWith(
+        fetch(event.request)
+          .then(response => {
+            // Clone the response to modify headers
+            const newResponse = new Response(response.body, response);
+            
+            // Add no-cache headers to force fresh content
+            newResponse.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+            newResponse.headers.set('Pragma', 'no-cache');
+            newResponse.headers.set('Expires', '0');
+            
+            return newResponse;
+          })
+          .catch(() => {
+            // Fallback to cache if network fails
+            return caches.match(event.request);
+          })
+      );
+    }
+  }
+});
