@@ -4,23 +4,26 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
 
 /**
- * A minimal play/pause button component that directly calls togglePlay
+ * A minimal play/pause button component
  */
 const PlayPauseButton = ({ isPlaying, isLoading, onClick }) => (
   <IconButton
     onClick={onClick}
-    size="large"
     disabled={isLoading}
     data-testid="play-pause-button"
     aria-label={isPlaying ? "Pause" : "Play"}
     sx={{
       bgcolor: "primary.main",
-      color: "background.default",
+      color: "white",
       "&:hover": {
         bgcolor: "primary.dark",
       },
-      width: 56,
-      height: 56,
+      width: 32,
+      height: 32,
+      p: 0,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
       "&.Mui-disabled": {
         bgcolor: "action.disabledBackground",
         color: "action.disabled",
@@ -28,9 +31,9 @@ const PlayPauseButton = ({ isPlaying, isLoading, onClick }) => (
     }}
   >
     {isPlaying ? (
-      <PauseIcon fontSize="large" />
+      <PauseIcon sx={{ fontSize: 16 }} />
     ) : (
-      <PlayArrowIcon fontSize="large" />
+      <PlayArrowIcon sx={{ fontSize: 16 }} />
     )}
   </IconButton>
 );

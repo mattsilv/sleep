@@ -24,7 +24,7 @@ const VolumeControl = ({ volume, isMuted, onVolumeChange, onToggleMute }) => {
         step={0.01}
         onChange={onVolumeChange}
         aria-label="Volume"
-        sx={{ color: "#ce93d8" }}
+        sx={{ color: "#808080" }}
       />
     </Stack>
   );

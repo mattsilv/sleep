@@ -119,30 +119,53 @@ const useAudio = ({
     };
   }, [setIsLoading, setIsPlaying, setDuration, setCurrentTime]);
   
+  // Set audio preload hint
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.preload = "auto";
+    }
+  }, []);
+
   // Update audio src when narrator changes
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
     
-    console.log("Updating audio source for narrator:", narrator);
+    console.log("Switching to narrator:", narrator);
     
-    // Pause audio if playing
+    // Always ensure audio is paused when switching narrators
     if (!audio.paused) {
       audio.pause();
     }
     
-    setIsLoading(true);
+    // Reset UI state to default (not playing, time at 0)
+    setIsPlaying(false);
+    setCurrentTime(0);
     
-    // Determine the path based on narrator
-    const path = `/${narrator === "peter" ? "peaceful-peter" : "brittney"}-full-meditation-raw.mp3`;
-    console.log("Setting audio source to:", path);
+    // Get the audio source for this narrator
+    const newPath = `/${narrator === "peter" ? "peaceful-peter" : "brittney"}-full-meditation-raw.mp3`;
     
-    // Update source and load
-    audio.src = path;
-    audio.playbackRate = 1.0; // Ensure normal playback rate after source change
+    // Set source and reset position
+    audio.src = newPath;
+    audio.currentTime = 0;
+    
+    // Load the new audio (but don't play)
     audio.load();
     
-  }, [narrator, setIsLoading]);
+    // When metadata is loaded, update duration
+    const handleLoadedMetadata = () => {
+      setDuration(audio.duration);
+      setIsLoading(false);
+    };
+    
+    // Add temporary listener to handle metadata loading
+    audio.addEventListener('loadedmetadata', handleLoadedMetadata, { once: true });
+    
+    // Cleanup function to remove listener if component unmounts before metadata loads
+    return () => {
+      audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
+    };
+  }, [narrator, setIsLoading, setDuration, setIsPlaying, setCurrentTime]);
   
   // Update volume when it changes
   useEffect(() => {
@@ -211,9 +234,19 @@ const useAudio = ({
     }
   }, [isMuted, setIsMuted, prevVolume, setPrevVolume, volume]);
 
-  // Handle narrator change
+  // Handle narrator change with debounce to prevent rapid re-renders
   const handleNarratorChange = useCallback((event) => {
-    setNarrator(event.target.value);
+    // Use timeout to prevent UI lag during radio button changes
+    setTimeout(() => {
+      // When changing narrator, we'll:
+      // 1. Pause playback (handled in useEffect)
+      // 2. Reset position to beginning (handled in useEffect)
+      // 3. Update the narrator value
+      setNarrator(event.target.value);
+      
+      // Log narrator change for debugging
+      console.log("Narrator changed to:", event.target.value, "(will pause and reset)");
+    }, 0);
   }, [setNarrator]);
 
   return {

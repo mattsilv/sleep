@@ -3,13 +3,15 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import Stack from "@mui/material/Stack";
 
 import TimeSlider from "./audioPlayer/TimeSlider";
 import VolumeControl from "./audioPlayer/VolumeControl";
 import PlayPauseButton from "./audioPlayer/PlayPauseButton";
 import NarratorSelector from "./audioPlayer/NarratorSelector";
-import { AudioProvider, useAudioContext } from "./audioPlayer/context/AudioContext";
+import {
+  AudioProvider,
+  useAudioContext,
+} from "./audioPlayer/context/AudioContext";
 
 /**
  * AudioPlayer presentation component
@@ -50,45 +52,61 @@ const AudioPlayerContent = () => {
         boxShadow: 3,
       }}
     >
-      <CardContent>
-        <NarratorSelector 
-          narrator={narrator} 
-          onChange={handleNarratorChange} 
-        />
+      <CardContent sx={{ p: 3 }}>
+        <NarratorSelector narrator={narrator} onChange={handleNarratorChange} />
 
-        <Box sx={{ mb: 2 }}>
-          <Typography variant="subtitle1" color="text.secondary" align="center">
-            {isLoading ? "Loading audio..." : ""}
-          </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            mt: 3,
+            mb: 2,
+            position: "relative",
+            height: 40,
+          }}
+        >
+          <Box
+            sx={{
+              mr: 2,
+              position: "absolute",
+              left: 0,
+              top: "50%",
+              transform: "translateY(-50%)",
+              zIndex: 1,
+            }}
+          >
+            <PlayPauseButton
+              isPlaying={isPlaying}
+              isLoading={isLoading}
+              onClick={togglePlay}
+            />
+          </Box>
+          <Box
+            sx={{
+              flexGrow: 1,
+              pl: 6,
+              display: "flex",
+              alignItems: "center",
+              height: "100%",
+            }}
+          >
+            <TimeSlider
+              currentTime={currentTime}
+              duration={duration}
+              isLoading={isLoading}
+              onChange={handleTimeChange}
+            />
+          </Box>
         </Box>
 
-        <TimeSlider 
-          currentTime={currentTime}
-          duration={duration}
-          isLoading={isLoading}
-          onChange={handleTimeChange}
-        />
-
-        <Stack
-          direction="row"
-          spacing={1}
-          alignItems="center"
-          justifyContent="space-between"
-          sx={{ mt: 2 }}
-        >
-          <VolumeControl 
+        <Box sx={{ display: "flex", justifyContent: "flex-start", mt: 1 }}>
+          <VolumeControl
             volume={volume}
             isMuted={isMuted}
             onVolumeChange={handleVolumeChange}
             onToggleMute={toggleMute}
           />
-
-          <PlayPauseButton 
-            isPlaying={isPlaying}
-            isLoading={isLoading}
-            onClick={togglePlay}
-          />
-        </Stack>
+        </Box>
       </CardContent>
     </Card>
   );

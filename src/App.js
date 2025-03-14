@@ -16,10 +16,14 @@ const darkTheme = createTheme({
   palette: {
     mode: "dark",
     primary: {
-      main: "#90caf9",
+      main: "#a0a0a0",
     },
     secondary: {
-      main: "#ce93d8",
+      main: "#a0a0a0",
+    },
+    text: {
+      primary: "#b0b0b0",
+      secondary: "#909090",
     },
     background: {
       default: "#121212",
@@ -66,30 +70,30 @@ function App() {
             <Typography
               variant="h6"
               component="div"
-              sx={{ flexGrow: 1, fontWeight: 300 }}
+              sx={{ flexGrow: 1, fontWeight: 300, color: "#909090" }}
             >
               Sleep
             </Typography>
 
             <IconButton
-              color="inherit"
               aria-label="information"
               onClick={handleOpenAbout}
               edge="end"
+              sx={{ color: "#909090" }}
             >
-              <InfoIcon />
+              <InfoIcon sx={{ fontSize: "150%" }} />
             </IconButton>
           </Toolbar>
         </AppBar>
 
-        <Container maxWidth="sm" className="content">
+        <Container maxWidth="sm" className="content" sx={{ px: 4 }}>
           <Box
             sx={{
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
               width: "100%",
-              py: 4,
+              py: 5,
             }}
           >
             <Typography
@@ -100,6 +104,7 @@ function App() {
               sx={{
                 fontWeight: 300,
                 mb: 4,
+                color: "#909090"
               }}
             >
               Box Breathing Technique
