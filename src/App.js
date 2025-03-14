@@ -104,13 +104,41 @@ function App() {
               sx={{
                 fontWeight: 300,
                 mb: 4,
-                color: "#909090"
+                color: "#909090",
               }}
             >
               Box Breathing Technique
             </Typography>
 
             <AudioPlayer />
+
+            <Box
+              sx={{
+                mt: 4,
+                textAlign: "center",
+                opacity: 0.6,
+              }}
+            >
+              <Typography
+                variant="caption"
+                color="text.secondary"
+                sx={{ fontSize: "110%" }}
+              >
+                a micro app for public good by{" "}
+                <a
+                  href="https://www.silv.app"
+                  style={{
+                    color: "inherit",
+                    textDecoration: "underline",
+                    textDecorationOpacity: 0.5,
+                    textDecorationThickness: "0.7px",
+                    textUnderlineOffset: "2px",
+                  }}
+                >
+                  silv
+                </a>
+              </Typography>
+            </Box>
           </Box>
         </Container>
 
