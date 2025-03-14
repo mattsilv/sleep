@@ -7,9 +7,32 @@ import CloseIcon from '@mui/icons-material/Close';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import ReactMarkdown from 'react-markdown';
+import { styled } from '@mui/material/styles';
+
+// Custom styled component for compact markdown content
+const CompactContent = styled(Box)(({ theme }) => ({
+  '& p': {
+    marginTop: '0.6em',
+    marginBottom: '0.6em',
+  },
+  '& h3': {
+    marginTop: '1em',
+    marginBottom: '0.4em',
+  },
+  '& ul': {
+    marginTop: '0.4em',
+    marginBottom: '0.4em',
+    paddingLeft: '1.5em',
+  },
+  '& li': {
+    marginTop: '0.2em',
+    marginBottom: '0.2em',
+  },
+}));
 
 const AboutModal = ({ open, onClose }) => {
   const [markdown, setMarkdown] = useState('');
+  const [title, setTitle] = useState('Box Breathing Technique');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -18,7 +41,15 @@ const AboutModal = ({ open, onClose }) => {
       fetch('/about.md')
         .then(response => response.text())
         .then(text => {
-          setMarkdown(text);
+          // Process the content to separate title and content
+          const lines = text.split('\n');
+          if (lines[0].startsWith('## ')) {
+            setTitle(lines[0].replace('##', '').trim());
+            // Join the rest of the content, skipping the title
+            setMarkdown(lines.slice(1).join('\n').trim());
+          } else {
+            setMarkdown(text);
+          }
           setLoading(false);
         })
         .catch(error => {
@@ -43,8 +74,8 @@ const AboutModal = ({ open, onClose }) => {
         }
       }}
     >
-      <DialogTitle id="about-dialog-title" sx={{ pr: 6 }}>
-        About
+      <DialogTitle id="about-dialog-title" sx={{ pr: 6, pb: 1 }}>
+        {title}
         <IconButton
           aria-label="close"
           onClick={onClose}
@@ -59,13 +90,33 @@ const AboutModal = ({ open, onClose }) => {
         </IconButton>
       </DialogTitle>
       
-      <DialogContent dividers>
+      <DialogContent sx={{ pt: 0.5 }}>
         {loading ? (
           <Box sx={{ display: 'flex', justifyContent: 'center', p: 4 }}>
             <CircularProgress />
           </Box>
         ) : (
-          <ReactMarkdown>{markdown}</ReactMarkdown>
+          <CompactContent>
+            <ReactMarkdown
+              components={{
+                a: ({ node, ...props }) => (
+                  <a 
+                    {...props} 
+                    style={{ 
+                      color: '#b0b0b0', 
+                      textDecoration: 'underline',
+                      textDecorationThickness: '0.7px',
+                      textUnderlineOffset: '2px',
+                    }} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  />
+                )
+              }}
+            >
+              {markdown}
+            </ReactMarkdown>
+          </CompactContent>
         )}
       </DialogContent>
     </Dialog>

@@ -103,11 +103,32 @@ function App() {
               align="center"
               sx={{
                 fontWeight: 300,
-                mb: 4,
+                mb: 1,
                 color: "#909090",
               }}
             >
               Box Breathing Technique
+            </Typography>
+            
+            <Typography 
+              variant="body2" 
+              component="p" 
+              align="center"
+              onClick={handleOpenAbout}
+              sx={{
+                color: "#707070",
+                mb: 4,
+                cursor: "pointer",
+                textDecoration: "underline",
+                textDecorationOpacity: 0.5,
+                textDecorationThickness: "0.7px",
+                textUnderlineOffset: "2px",
+                "&:hover": {
+                  color: "#909090",
+                }
+              }}
+            >
+              Learn about box breathing
             </Typography>
 
             <AudioPlayer />
@@ -122,7 +143,7 @@ function App() {
               <Typography
                 variant="caption"
                 color="text.secondary"
-                sx={{ fontSize: "110%" }}
+                sx={{ fontSize: "99%" }}
               >
                 a micro app for public good by{" "}
                 <a
