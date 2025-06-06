@@ -61,7 +61,7 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/sleep.git
+git clone https://github.com/USERNAME/REPO.git
 
 # Install dependencies
 cd sleep && npm install
@@ -219,8 +219,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 <div align="center">
   <p>Built with ❤️ for better sleep and mindfulness</p>
   <p>
-    <a href="https://github.com/yourusername/sleep">GitHub</a> •
-    <a href="https://breathe.app">Live Demo</a> •
-    <a href="https://twitter.com/yourusername">Twitter</a>
+    <a href="https://github.com/USERNAME/REPO">GitHub</a> •
+    <a href="https://your-app.netlify.app">Live Demo</a> •
+    <a href="https://twitter.com/USERNAME">Twitter</a>
   </p>
 </div>

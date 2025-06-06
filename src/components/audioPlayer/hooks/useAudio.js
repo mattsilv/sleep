@@ -30,7 +30,6 @@ const useAudio = ({
   useEffect(() => {
     // Create audio element if it doesn't exist
     if (!audioRef.current) {
-      console.log("Creating new audio element");
       const audio = new Audio();
       audio.preload = "auto";
       audio.playbackRate = 1.0; // Explicitly set normal playback rate
@@ -53,43 +52,35 @@ const useAudio = ({
     const audio = audioRef.current;
     if (!audio) return;
     
-    console.log("Setting up audio event listeners");
     
     // Event handlers
     const handleLoadedMetadata = () => {
-      console.log("Audio metadata loaded, duration:", audio.duration);
       setDuration(audio.duration);
       setIsLoading(false);
     };
     
     const handleLoadStart = () => {
-      console.log("Audio load started");
       setIsLoading(true);
     };
     
     const handleCanPlayThrough = () => {
-      console.log("Audio can play through");
       setIsLoading(false);
     };
     
     const handlePlay = () => {
-      console.log("Audio playing");
       setIsPlaying(true);
     };
     
     const handlePause = () => {
-      console.log("Audio paused");
       setIsPlaying(false);
     };
     
     const handleEnded = () => {
-      console.log("Audio ended");
       setIsPlaying(false);
       setCurrentTime(0);
     };
     
     const handleError = (e) => {
-      console.error("Audio error:", e);
       setIsLoading(false);
       setIsPlaying(false);
     };
@@ -133,7 +124,6 @@ const useAudio = ({
     const audio = audioRef.current;
     if (!audio) return;
     
-    console.log("Switching to:", narrator, mode);
     
     // Always ensure audio is paused when switching
     if (!audio.paused) {
@@ -145,13 +135,7 @@ const useAudio = ({
     setCurrentTime(0);
     
     // Get the audio source based on narrator and mode
-    let newPath;
-    if (narrator === "peter") {
-      newPath = `/${narrator}-${mode}.mp3`; // peter-sleep.mp3 or peter-relax.mp3
-    } else {
-      // For Brittney, we still use the old naming (for now)
-      newPath = `/brittney-full-meditation-raw.mp3`;
-    }
+    const newPath = `/${narrator}-${mode}.mp3`; // peter-sleep.mp3 or peter-relax.mp3
     
     // Set source and reset position
     audio.src = newPath;
@@ -188,7 +172,6 @@ const useAudio = ({
     const audio = audioRef.current;
     if (!audio) return;
     
-    console.log("Toggle play, currently playing:", !audio.paused);
     
     if (audio.paused) {
       // Create a promise to handle autoplay restrictions
@@ -196,7 +179,6 @@ const useAudio = ({
       
       if (playPromise !== undefined) {
         playPromise.catch((error) => {
-          console.error("Play error:", error);
           setIsPlaying(false);
         });
       }
@@ -253,7 +235,6 @@ const useAudio = ({
       setNarrator(event.target.value);
       
       // Log narrator change for debugging
-      console.log("Narrator changed to:", event.target.value, "(will pause and reset)");
     }, 0);
   }, [setNarrator]);
 
@@ -268,7 +249,6 @@ const useAudio = ({
       setMode(event.target.value);
       
       // Log mode change for debugging
-      console.log("Mode changed to:", event.target.value, "(will pause and reset)");
     }, 0);
   }, [setMode]);
 

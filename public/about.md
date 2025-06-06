@@ -18,4 +18,4 @@ The guided meditations incorporate the Box Breathing technique (also known as Sq
 
 For maximum effectiveness, combine Box Breathing with progressive muscle relaxation and calm visualization.
 
-The audio content is created using the ElevenLabs API, providing natural and engaging voice guidance for your breathing exercises. [Try ElevenLabs](https://try.elevenlabs.io/mfkx209oggun) to experience the quality of the audio technology.
+The audio content is created using the ElevenLabs API, providing natural and engaging voice guidance for your breathing exercises.

@@ -23,7 +23,7 @@ const NarratorSelector = memo(({ narrator, onChange }) => {
           fontWeight: 500 
         }}
       >
-        Choose your guide
+        Narrator
       </Typography>
       
       <Stack 
@@ -45,20 +45,6 @@ const NarratorSelector = memo(({ narrator, onChange }) => {
           } 
           label="Peter" 
           sx={{ marginRight: 0 }}
-        />
-        <FormControlLabel
-          value="brittney"
-          control={
-            <Radio 
-              checked={narrator === "brittney"} 
-              onChange={onChange} 
-              value="brittney" 
-              name="narrator-group"
-              sx={{ padding: 0.75 }}
-            />
-          }
-          label="Brittney"
-          sx={{ marginLeft: 0 }}
         />
       </Stack>
     </Box>

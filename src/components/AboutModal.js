@@ -59,7 +59,6 @@ const AboutModal = ({ open, onClose, mode = "sleep" }) => {
           setLoading(false);
         })
         .catch(error => {
-          console.error('Error fetching markdown:', error);
           setSleepContent('Could not load about information.');
           setLoading(false);
         });

@@ -170,7 +170,6 @@ self.addEventListener('install', (event) => {
           if (cacheName.startsWith('workbox-precache') || 
               cacheName.includes('audio-files') || 
               cacheName.includes('images')) {
-            console.log('Clearing old cache:', cacheName);
             return caches.delete(cacheName);
           }
           return Promise.resolve();
