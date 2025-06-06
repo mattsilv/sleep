@@ -1,4 +1,5 @@
 /* eslint-disable no-restricted-globals */
+/* global clients */
 
 // This service worker can be customized!
 // See https://developers.google.com/web/tools/workbox/modules/workbox-sw
@@ -151,6 +152,49 @@ self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }
+});
+
+// Automatic service worker update check
+const CACHE_VERSION = '1.0.2'; // Update this when you want to force cache refresh
+
+self.addEventListener('install', (event) => {
+  // Skip waiting to activate immediately
+  self.skipWaiting();
+  
+  // Clear old caches when installing new version
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          // Only clear our app caches, not external ones like Google Fonts
+          if (cacheName.startsWith('workbox-precache') || 
+              cacheName.includes('audio-files') || 
+              cacheName.includes('images')) {
+            console.log('Clearing old cache:', cacheName);
+            return caches.delete(cacheName);
+          }
+          return Promise.resolve();
+        })
+      );
+    })
+  );
+});
+
+self.addEventListener('activate', (event) => {
+  // Take control of all clients immediately
+  event.waitUntil(clients.claim());
+  
+  // Notify all clients that a new version is available
+  event.waitUntil(
+    clients.matchAll().then(clients => {
+      clients.forEach(client => {
+        client.postMessage({
+          type: 'NEW_VERSION_AVAILABLE',
+          version: CACHE_VERSION
+        });
+      });
+    })
+  );
 });
 
 // Any other custom service worker logic can go here.

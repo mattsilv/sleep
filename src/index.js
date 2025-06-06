@@ -30,3 +30,12 @@ serviceWorkerRegistration.register({
     }
   }
 });
+
+// Listen for version update messages from service worker
+navigator.serviceWorker.addEventListener('message', event => {
+  if (event.data && event.data.type === 'NEW_VERSION_AVAILABLE') {
+    console.log('New app version available:', event.data.version);
+    // Force a hard refresh to get the latest content
+    window.location.reload(true);
+  }
+});
