@@ -1,3 +1,47 @@
 .spectstory/
 node_modules/
 .env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+.env
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+audio-utilities/.venv/
+audio-utilities/venv/
+
+# uv lock files
+uv.lock
+audio-utilities/uv.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Audio processing outputs
+*_optimized.mp3
+*_web_optimized.mp3
+*_128k.mp3
+*_44k.mp3
+*_mono.mp3
+*-backup.mp3
+
+# Temporary files
+*.tmp
+*.temp
+.cache/

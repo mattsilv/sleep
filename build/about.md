@@ -1,6 +1,6 @@
 ## Box Breathing Technique
 
-Our guided meditations incorporate the Box Breathing technique (also known as Square Breathing or Tactical Breathing) popularized by Navy SEALs. This scientifically supported method helps calm the nervous system, reduce stress, and induce relaxation.
+The guided meditations incorporate the Box Breathing technique (also known as Square Breathing or Tactical Breathing) popularized by Navy SEALs. This scientifically supported method helps calm the nervous system, reduce stress, and induce relaxation.
 
 ### How to Practice Box Breathing:
 
@@ -17,3 +17,5 @@ Our guided meditations incorporate the Box Breathing technique (also known as Sq
 - Reduces anxiety and improves sleep quality
 
 For maximum effectiveness, combine Box Breathing with progressive muscle relaxation and calm visualization.
+
+The audio content is created using the ElevenLabs API, providing natural and engaging voice guidance for your breathing exercises. [Try ElevenLabs](https://try.elevenlabs.io/mfkx209oggun) to experience the quality of the audio technology.

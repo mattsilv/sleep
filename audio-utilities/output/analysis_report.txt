@@ -1,0 +1,9 @@
+Audio Analysis Report
+Generated: 2025-06-05 21:03:26
+============================================================
+
+File 1: ElevenLabs_2025-06-06T00_49_52_Peaceful Peter - Calm, Soothing, & Meditative_pvc_sp100_s50_sb75_v3.mp3
+  Size: 3.12 MB
+  Duration: 3:24
+  Bitrate: 128000
+  Sample Rate: 44100Hz

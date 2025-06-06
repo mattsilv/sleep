@@ -6,11 +6,9 @@ import CardContent from "@mui/material/CardContent";
 import TimeSlider from "./audioPlayer/TimeSlider";
 import VolumeControl from "./audioPlayer/VolumeControl";
 import PlayPauseButton from "./audioPlayer/PlayPauseButton";
-import NarratorSelector from "./audioPlayer/NarratorSelector";
-import {
-  AudioProvider,
-  useAudioContext,
-} from "./audioPlayer/context/AudioContext";
+import ModeSelector from "./audioPlayer/ModeSelector";
+// import NarratorSelector from "./audioPlayer/NarratorSelector";
+import { useAudioContext } from "./audioPlayer/context/AudioContext";
 
 /**
  * AudioPlayer presentation component
@@ -32,13 +30,15 @@ const AudioPlayerContent = () => {
     currentTime,
     volume,
     isMuted,
-    narrator,
+    // narrator,
     isLoading,
+    mode,
     togglePlay,
     handleTimeChange,
     handleVolumeChange,
     toggleMute,
-    handleNarratorChange,
+    // handleNarratorChange,
+    handleModeChange,
   } = useAudioContext();
 
   return (
@@ -52,7 +52,8 @@ const AudioPlayerContent = () => {
       }}
     >
       <CardContent sx={{ p: 3 }}>
-        <NarratorSelector narrator={narrator} onChange={handleNarratorChange} />
+        <ModeSelector mode={mode} onChange={handleModeChange} />
+        {/* <NarratorSelector narrator={narrator} onChange={handleNarratorChange} /> */}
 
         <Box
           sx={{
@@ -113,14 +114,9 @@ const AudioPlayerContent = () => {
 
 /**
  * Main AudioPlayer component
- * Wraps presentation component with the AudioProvider context
  */
 const AudioPlayer = () => {
-  return (
-    <AudioProvider>
-      <AudioPlayerContent />
-    </AudioProvider>
-  );
+  return <AudioPlayerContent />;
 };
 
 export default AudioPlayer;

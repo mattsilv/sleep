@@ -20,6 +20,8 @@ const useAudio = ({
   setNarrator,
   isLoading,
   setIsLoading,
+  mode,
+  setMode,
 }) => {
   // Audio element reference
   const audioRef = useRef(null);
@@ -126,14 +128,14 @@ const useAudio = ({
     }
   }, []);
 
-  // Update audio src when narrator changes
+  // Update audio src when narrator or mode changes
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
     
-    console.log("Switching to narrator:", narrator);
+    console.log("Switching to:", narrator, mode);
     
-    // Always ensure audio is paused when switching narrators
+    // Always ensure audio is paused when switching
     if (!audio.paused) {
       audio.pause();
     }
@@ -142,8 +144,14 @@ const useAudio = ({
     setIsPlaying(false);
     setCurrentTime(0);
     
-    // Get the audio source for this narrator
-    const newPath = `/${narrator === "peter" ? "peaceful-peter" : "brittney"}-full-meditation-raw.mp3`;
+    // Get the audio source based on narrator and mode
+    let newPath;
+    if (narrator === "peter") {
+      newPath = `/${narrator}-${mode}.mp3`; // peter-sleep.mp3 or peter-relax.mp3
+    } else {
+      // For Brittney, we still use the old naming (for now)
+      newPath = `/brittney-full-meditation-raw.mp3`;
+    }
     
     // Set source and reset position
     audio.src = newPath;
@@ -165,7 +173,7 @@ const useAudio = ({
     return () => {
       audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
     };
-  }, [narrator, setIsLoading, setDuration, setIsPlaying, setCurrentTime]);
+  }, [narrator, mode, setIsLoading, setDuration, setIsPlaying, setCurrentTime]);
   
   // Update volume when it changes
   useEffect(() => {
@@ -249,6 +257,21 @@ const useAudio = ({
     }, 0);
   }, [setNarrator]);
 
+  // Handle mode change
+  const handleModeChange = useCallback((event) => {
+    // Use timeout to prevent UI lag during radio button changes
+    setTimeout(() => {
+      // When changing mode, we'll:
+      // 1. Pause playback (handled in useEffect)
+      // 2. Reset position to beginning (handled in useEffect)
+      // 3. Update the mode value
+      setMode(event.target.value);
+      
+      // Log mode change for debugging
+      console.log("Mode changed to:", event.target.value, "(will pause and reset)");
+    }, 0);
+  }, [setMode]);
+
   return {
     soundRef: audioRef,
     togglePlay,
@@ -256,6 +279,7 @@ const useAudio = ({
     handleVolumeChange,
     toggleMute,
     handleNarratorChange,
+    handleModeChange,
   };
 };
 

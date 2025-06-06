@@ -1,0 +1,23 @@
+# Python audio utilities (development tools)
+audio-utilities/
+
+# Development files
+CLAUDE.md
+method.md
+docs/
+
+# Version control
+.git/
+.gitignore
+
+# Dependencies and build files that Netlify handles
+node_modules/
+package-lock.json
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db

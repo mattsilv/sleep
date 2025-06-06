@@ -15,6 +15,7 @@ export const AudioProvider = ({ children }) => {
   const [prevVolume, setPrevVolume] = useState(0.7);
   const [narrator, setNarrator] = useState("peter");
   const [isLoading, setIsLoading] = useState(true);
+  const [mode, setMode] = useState("sleep"); // sleep or relax
 
   // Get audio control functions from custom hook
   const {
@@ -23,6 +24,7 @@ export const AudioProvider = ({ children }) => {
     handleVolumeChange,
     toggleMute,
     handleNarratorChange,
+    handleModeChange,
   } = useAudio({
     isPlaying,
     setIsPlaying,
@@ -40,6 +42,8 @@ export const AudioProvider = ({ children }) => {
     setNarrator,
     isLoading,
     setIsLoading,
+    mode,
+    setMode,
   });
 
   // Context value
@@ -52,6 +56,7 @@ export const AudioProvider = ({ children }) => {
     isMuted,
     narrator,
     isLoading,
+    mode,
 
     // Functions
     togglePlay,
@@ -59,6 +64,7 @@ export const AudioProvider = ({ children }) => {
     handleVolumeChange,
     toggleMute,
     handleNarratorChange,
+    handleModeChange,
   };
 
   return (
